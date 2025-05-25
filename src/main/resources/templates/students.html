@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Students</title>
+</head>
+<body>
+<h1>Students</h1>
+<form method="get" action="/students/filter">
+    <label for="isContract">Filter by Contract:</label>
+    <select name="isContract" id="isContract">
+        <option value="true">Contract</option>
+        <option value="false">Non-Contract</option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Student ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Group Name</th>
+        <th>Contract</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${students}">
+        <td th:text="${student.studentId}"></td>
+        <td th:text="${student.firstName}"></td>
+        <td th:text="${student.lastName}"></td>
+        <td th:text="${student.groupName}"></td>
+        <td th:text="${student.isContract}"></td>
+    </tr>
+    </tbody>
+</table>
+<a href="/students/add">Add Student</a>
+</body>
+</html>

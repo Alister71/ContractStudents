@@ -23,13 +23,23 @@ public class SecurityConfig {
                 .build();
     }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeHttpRequests()
-                .anyRequest().authenticated()
+        http
+                .csrf(csrf -> csrf.disable()) // Disable CSRF
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/students/**").authenticated() // Require authentication for /students/**
+                        .anyRequest().permitAll() // Allow other requests
+                )
+                .formLogin() // Use default login page
                 .and()
-                .httpBasic();
+                .logout(logout -> logout
+                        .logoutUrl("/logout") // Default logout URL
+                        .logoutSuccessUrl("/") // Redirect to home after logout
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                );
         return http.build();
     }
 }

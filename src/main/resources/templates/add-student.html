@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Student</title>
+</head>
+<body>
+<h1>Add Student</h1>
+<form method="post" action="/students/add">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" required>
+    <br>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" required>
+    <br>
+    <label for="groupName">Group Name:</label>
+    <input type="text" id="groupName" name="groupName" required>
+    <br>
+    <label for="isContract">Is Contract:</label>
+    <select name="isContract" id="isContract">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br>
+    <button type="submit">Add Student</button>
+</form>
+<a href="/students">Back to List</a>
+</body>
+</html>

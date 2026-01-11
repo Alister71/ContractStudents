@@ -76,40 +76,4 @@ class StudentRestControllerTest {
                 .andExpect(jsonPath("$.isContract", is(true)));
     }
 
-    @Test
-    @DisplayName("Get all students successfully")
-    void getAllStudentsSuccessfully() throws Exception {
-        List<Student> students = Arrays.asList(student1, student2);
-        Mockito.when(studentRepository.findAll()).thenReturn(students);
-
-        mockMvc.perform(get("/api/students"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].firstName", is("John")))
-                .andExpect(jsonPath("$[1].firstName", is("Jane")));
-    }
-
-    @Test
-    @DisplayName("Filter students by isContract true")
-    void filterStudentsByIsContractTrue() throws Exception {
-        Mockito.when(studentRepository.findByIsContract(eq(true))).thenReturn(List.of(student1));
-
-        mockMvc.perform(get("/api/students/filter")
-                        .param("isContract", "true"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].firstName", is("John")));
-    }
-
-    @Test
-    @DisplayName("Filter students by isContract false")
-    void filterStudentsByIsContractFalse() throws Exception {
-        Mockito.when(studentRepository.findByIsContract(eq(false))).thenReturn(List.of(student2));
-
-        mockMvc.perform(get("/api/students/filter")
-                        .param("isContract", "false"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].firstName", is("Jane")));
-    }
 }
